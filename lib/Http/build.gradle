@@ -1,0 +1,61 @@
+ext {
+    /**
+     * https://github.com/ReactiveX/RxJava
+     * https://github.com/ReactiveX/RxAndroid
+     */
+    rx_version = '2.0.1'
+    /**
+     * https://github.com/square/okhttp
+     */
+    okhttp_version = '3.11.0'
+    /**
+     * https://github.com/square/retrofit
+     */
+    retrofit_version = '2.4.0'
+}
+
+android {
+    buildTypes {
+        /*
+       * minifyEnabled　是否开启混淆
+       * zipAlignEnabled　是否优化apk文件，将apk文件中未压缩的数据在4个字节边界上对齐，具体见改善android性能工具：Zipalign
+       * shrinkResources 是否去除无用资源，任何在编译过程中没有用到的资源或者代码都会被删除，可以有效减小apk体积
+       * proguardFiles 指定混淆规则文件
+       * */
+        release {
+            for (def entrySet : ConfigUtils.getApplyHost("release")) {
+                buildConfigField "String", entrySet.key, "\"$entrySet.value\""
+            }
+        }
+        beta {
+            for (def entrySet : ConfigUtils.getApplyHost("debug")) {
+                buildConfigField "String", entrySet.key, "\"$entrySet.value\""
+            }
+        }
+        debug {
+            for (def entrySet : ConfigUtils.getApplyHost("debug")) {
+                buildConfigField "String", entrySet.key, "\"$entrySet.value\""
+            }
+        }
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //rx
+    api "io.reactivex.rxjava2:rxjava:$rx_version"
+    api "io.reactivex.rxjava2:rxandroid:$rx_version"
+    //okhttp
+    api "com.squareup.okhttp3:okhttp:$okhttp_version"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    //retrofit
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+
+    //
+    implementation Config.depConfig.android.constraintlayout.dep
+    implementation Config.depConfig.android.corektx.dep
+    implementation project(':lib:Utils')
+}

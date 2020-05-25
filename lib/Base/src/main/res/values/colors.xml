@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Sys Color-->
+    <!--系统默认字体颜色-->
+    <color name="color_80000000">#80000000</color>
+
+    <!--Base Color-->
+    <color name="colorWhite">@color/color_FFFFFF</color>
+    <color name="colorBlack">@color/color_000000</color>
+    <color name="colorRed">@color/color_FF0000</color>
+    <color name="colorBlue">@color/color_0000FF</color>
+    <color name="colorGreen">@color/color_00FF00</color>
+
+    <!--RGB Color-->
+    <color name="color_FFFFFF">#FFFFFF</color>
+    <color name="color_000000">#000000</color>
+    <color name="color_FF0000">#FF0000</color>
+    <color name="color_0000FF">#0000FF</color>
+    <color name="color_00FF00">#00FF00</color>
+</resources>

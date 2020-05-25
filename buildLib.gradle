@@ -1,0 +1,97 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
+
+configAndroidLibDomain()
+
+dependencies {
+    
+}
+
+
+//app main
+def configAndroidLibDomain() {
+    configDefault()
+    configBuildType()
+    configSourceSets()
+    configOption()
+}
+
+//config defaltConfig
+def configDefault() {
+    android {
+        compileSdkVersion Config.compileSdkVersion
+        defaultConfig {
+            minSdkVersion Config.minSdkVersion
+            targetSdkVersion Config.targetSdjVersion
+            versionCode Config.versionCode
+            versionName Config.versionName
+        }
+    }
+
+}
+
+//config build type
+def configBuildType() {
+    android {
+        buildTypes {
+            /*
+           * minifyEnabled　是否开启混淆
+           * zipAlignEnabled　是否优化apk文件，将apk文件中未压缩的数据在4个字节边界上对齐，具体见改善android性能工具：Zipalign
+           * shrinkResources 是否去除无用资源，任何在编译过程中没有用到的资源或者代码都会被删除，可以有效减小apk体积
+           * proguardFiles 指定混淆规则文件
+           * */
+            release {
+                minifyEnabled true
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+            beta{
+                minifyEnabled true
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+
+            debug {
+            }
+        }
+    }
+}
+
+//config sourceSets
+def configSourceSets() {
+    android.sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            //自定义资源文件目录，注意备份
+            res.srcDirs =
+                    [
+                            'src/main/res/'
+                    ]
+        }
+    }
+}
+
+//config Option
+def configOption() {
+    android {
+        lintOptions {
+            abortOnError false
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+}
+
+def configNdk(Project pro) {
+    pro.android {
+        externalNativeBuild {
+            cmake {
+
+                //path file('../librarys/Encrypt/CMakeLists.txt')
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+rootProject.name='Gallery'
+include ':app',
+':lib:Common',
+':lib:Base',
+':lib:Http',
+':lib:Imageloder',
+':lib:Pluto',
+':lib:Utils'

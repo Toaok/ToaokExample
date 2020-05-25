@@ -1,0 +1,56 @@
+ext {
+
+    /**
+     * https://github.com/tbruyelle/RxPermissions
+     * add maven { url 'https://jitpack.io' } in project build.gradle
+     */
+    rxpermissions = '0.10.2'
+    /**
+     * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+     * add maven { url 'https://jitpack.io' } in project build.gradle
+     */
+    BRVAH = '2.9.45'
+
+    /**
+     * https://github.com/scwang90/SmartRefreshLayout
+     */
+    SmartRefresh = '1.0.4'
+    /**
+     *https://github.com/zxing/zxing
+     */
+    zxing = '3.4.0'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //rxpermissions
+    api "com.github.tbruyelle:rxpermissions:$rxpermissions"
+    //BRVAH
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$BRVAH"
+    //SmartRefresh
+    api "com.scwang.smartrefresh:SmartRefreshLayout:$SmartRefresh"
+    //Google zxing
+    api "com.google.zxing:core:$zxing"
+
+    api Config.depConfig.android.appcompat.dep
+    api Config.depConfig.android.material.dep
+    api Config.depConfig.android.constraintlayout.dep
+    api Config.depConfig.android.corektx.dep
+    api Config.depConfig.android.multidex.dep
+
+    api Config.depConfig.kotlin.standard_library.dep
+    api Config.depConfig.kotlin.coroutines_core.dep
+    api Config.depConfig.kotlin.coroutines_android.dep
+
+    api Config.depConfig.test.junit.dep
+    api Config.depConfig.test.runner.dep
+    api Config.depConfig.test.espresso_core.dep
+
+
+
+    api project(':lib:Http')
+    api project(':lib:Imageloder')
+    api project(':lib:Pluto')
+    api project(':lib:Utils')
+}

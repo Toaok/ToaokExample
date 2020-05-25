@@ -1,0 +1,212 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jakewharton.butterknife'
+
+dependencies {
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
+    //butterknife
+    implementation "com.jakewharton:butterknife:$Config.butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$Config.butterknife_version"
+    //
+
+    implementation project(':lib:Common')
+}
+
+configAndroidAppDomain()
+//app main
+def configAndroidAppDomain() {
+    configDefault()
+    configSigning()
+    configBuildType()
+    configProductFlavors()
+    configApkName()
+    configSourceSets()
+    configOption()
+}
+
+//config defaltConfig
+def configDefault() {
+    android {
+        compileSdkVersion Config.compileSdkVersion
+
+        defaultConfig {
+            applicationId Config.applicationId
+            minSdkVersion Config.minSdkVersion
+            targetSdkVersion Config.targetSdjVersion
+            versionCode Config.versionCode
+            versionName Config.versionName
+
+            //分割Dex文件
+            multiDexEnabled true
+
+            //flavorDimensions
+            flavorDimensions Config.flavorDimensions
+        }
+    }
+
+}
+
+//config signing
+def configSigning() {
+    File signPropertiesFile = file("${rootDir.path}" + File.separator + "sign" + File.separator + "keystore.properties")
+    if (!signPropertiesFile.exists()) {
+        GLog.d("${project.toString()} sign does not exist!!")
+        return
+    }
+    GLog.d("${project.toString()} sign start...")
+    android {
+        Properties properties = new Properties()
+        properties.load(new FileInputStream(signPropertiesFile))
+        signingConfigs {
+            release {
+                storeFile new File(signPropertiesFile.getParent(), properties['keystore'])
+                storePassword(properties['storePassword'])
+                keyAlias(properties['keyAlias'])
+                keyPassword(properties['keyPassword'])
+                v2SigningEnabled true
+            }
+        }
+    }
+}
+
+//config build type
+def configBuildType() {
+    android {
+        buildTypes {
+            /*
+           * minifyEnabled　是否开启混淆
+           * zipAlignEnabled　是否优化apk文件，将apk文件中未压缩的数据在4个字节边界上对齐，具体见改善android性能工具：Zipalign
+           * shrinkResources 是否去除无用资源，任何在编译过程中没有用到的资源或者代码都会被删除，可以有效减小apk体积
+           * proguardFiles 指定混淆规则文件
+           * */
+            release {
+                signingConfig signingConfigs.release
+                minifyEnabled true
+                shrinkResources true
+                zipAlignEnabled true
+                debuggable false
+
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                resValue "string", "app_name", Config.appName
+            }
+
+            beta {
+                signingConfig signingConfigs.release
+                applicationIdSuffix ".beta"
+                minifyEnabled true
+                shrinkResources true
+                zipAlignEnabled true
+                debuggable false
+
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                resValue "string", "app_name", Config.appName
+            }
+
+            debug {
+                signingConfig signingConfigs.release
+                applicationIdSuffix ".debug"
+                resValue "string", "app_name", Config.appName + ".debug"
+            }
+        }
+    }
+}
+
+//config ProductFlavors
+def configProductFlavors() {
+}
+
+//config apk name
+def configApkName() {
+    android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {//在debug时不重命名安装包
+            def artifact = variant.getPackageApplicationProvider().get()
+            artifact.outputDirectory = new File(project.rootDir.absolutePath + "/apk/" + variant.versionName + "/" + getUpperCase(variant.buildType.name) + "/" + getCurrentTime())
+            artifact.outputScope.apkDatas.forEach { apkData ->
+                apkData.outputFileName = Config.appName + //APP名称
+                        "_" + getUpperCase(variant.buildType.name) + //打包方式
+                        "_" + variant.versionName + //APP版本
+                        ".apk"
+            }
+        }
+    }
+}
+
+//config sourceSets
+def configSourceSets() {
+    android.sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            //自定义资源文件目录，注意备份
+            res.srcDirs =
+                    [
+                            'src/main/res/',
+                            'src/main/res/assets',
+                            'src/main/res/base',
+                            'src/main/res/common',
+                            'src/main/res/home',
+                            'src/main/res/mine',
+                            'src/main/res/otc',
+                            'src/main/res/setting',
+                            'src/main/res/sign',
+
+                    ]
+        }
+        // special build type variants
+        debug.setRoot('src/debug')
+        beta.setRoot('src/debug')
+    }
+
+}
+
+//config Option
+def configOption() {
+    android {
+        lintOptions {
+            abortOnError false
+        }
+
+        dexOptions {
+        }
+        //打包时排出以下文件
+        packagingOptions {
+            exclude 'META-INF/rxjava.properties'
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+}
+
+def configNdk(Project pro) {
+    pro.android {
+        externalNativeBuild {
+            cmake {
+
+                //path file('../librarys/Encrypt/CMakeLists.txt')
+            }
+        }
+    }
+}
+
+//frist words uppercase
+def getUpperCase(String word) {
+    return word.substring(0, 1).toUpperCase() + word.substring(1, word.length())
+}
+
+//get current time
+def getCurrentTime() {
+    DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH-mm")
+    String currentTime = dateFormat.format(new Date())
+    return currentTime
+}
+
+
+

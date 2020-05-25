@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/color_F9A128</color>
+    <color name="colorPrimaryDark">@color/color_F9A128</color>
+    <color name="colorAccent">@color/color_F9A128</color>
+
+    <!--base Color-->
+    <color name="colorTransparent">@color/color_00000000</color>
+    <color name="colorBackgroundDefault">@color/color_F5F6F7</color>
+
+    <!--ARGB-->
+    <color name="color_00000000">#00000000</color>
+    <color name="color_fffafafa">#FFFAFAFA</color>
+    <color name="color_7F000000">#7F000000</color>
+    <color name="color_7FCCCCCC">#7FCCCCCC</color>
+    <color name="color_99666666">#99666666</color>
+    <color name="color_33FFFFFF">#33FFFFFF</color>
+    <color name="color_7F3864FD">#7F3864FD</color>
+    <color name="color_CC3864FD">#CC3864FD</color>
+    <color name="color_99F9A128">#99F9A128</color>
+    <color name="color_99000000">#99000000</color>
+    <color name="color_99FFFFFF">#99FFFFFF</color>
+
+    <!-- App Color -->
+    <color name="color_333333">#333333</color>
+    <color name="color_CCCCCC">#CCCCCC</color>
+    <color name="color_323333">#323333</color>
+    <color name="color_ECECEC">#ECECEC</color>
+    <color name="color_C5C5C5">#C5C5C5</color>
+    <color name="color_DDDDDD">#DDDDDD</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_F9F9F9">#F9F9F9</color>
+    <color name="color_E7E7E7">#E7E7E7</color>
+    <color name="color_E6E6E6">#E6E6E6</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_F6F6F6">#F6F6F6</color>
+    <color name="color_D5D5D5">#D5D5D5</color>
+    <color name="color_BBBBBB">#BBBBBB</color>
+    <color name="color_EDEDED">#EDEDED</color>
+    <color name="color_E4E3DF">#E4E3DF</color>
+
+    <color name="color_D3D3D3">#D3D3D3</color>
+
+    <color name="color_CDCED2">#CDCED2</color>
+    <color name="color_F93728">#F93728</color>
+
+    <color name="color_F5F6F7">#F5F6F7</color>
+    <color name="color_F9A128">#F9A128</color>
+    <color name="color_F4EFE9">#F4EFE9</color>
+
+</resources>

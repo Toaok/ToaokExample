@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="no_data">暂无数据</string>
+
+
+    <!--Common-->
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="submit">提交</string>
+    <string name="delete">删除</string>
+    <string name="optional">选填</string>
+
+
+
+    <!--permission prompt-->
+    <string name="permission_call_phone">您已禁止%1$s使用拨打电话权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permission_location">您已禁止%1$s使用定位权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permission_storage">您已禁止%1$s使用存储权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permissions_camera_storage">您已禁止%1$s使用使用相机及存储权限，请到 设置->%2$s->应用权限 中开启</string>
+
+    <string name="permissions_call_phone">您已禁止%1$s使用拨打电话权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permissions_send_message">您已禁止%1$s使用发送短信权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permissions_read_contacts">您已禁止%1$s使用读取联系人权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permissions_location">您的定位功能没有开启</string>
+    <string name="permissions_storage">您已禁止%1$s使用存储权限，请到 设置->%2$s->应用权限 中开启</string>
+    <string name="permissions_record_audio">您已禁止%1$s使用麦克风权限，请到 设置->%2$s->应用权限 中开启</string>
+
+    <string name="permissions_notification">检测到你当前未开启通知权限，开启通知权限后可实时接收%s的最新消息。</string>
+    <string name="permissions_phone_state">您已禁止%1$s读取手机状态和身份权限，请到 设置->%2$s->应用权限 中开启</string>
+
+    <string name="permissions_open_gps">检测到你当前未开启GPS，部分功能不可用，请去设置。</string>
+</resources>
