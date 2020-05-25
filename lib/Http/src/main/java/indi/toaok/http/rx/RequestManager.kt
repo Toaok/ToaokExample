@@ -12,10 +12,11 @@ class RequestManager {
     companion object {
         private var requestManager = HashMap<Class<*>, Any?>()
 
-        @SuppressWarnings("unchecked")
+        @Suppress("UNCHECKED_CAST")
         fun <T> getRequest(clazz: Class<T>, serverHost: String): T {
             if (!clazz.isInterface) throw IllegalArgumentException("API declarations must be interfaces.")
-            var t: T = requestManager[clazz] as T
+            val api = requestManager[clazz]
+            var t: T = api as T
             if (t == null) {
                 t = RetrofitClient.createApi(clazz, serverHost)
                 requestManager[clazz] = t

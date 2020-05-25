@@ -1,4 +1,4 @@
-rootProject.name='Gallery'
+rootProject.name='Example'
 include ':app',
 ':lib:Common',
 ':lib:Base',
